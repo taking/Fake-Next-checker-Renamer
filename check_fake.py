@@ -6,7 +6,7 @@ import re, os
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("dir", "-d", required=True, help="target directory. ex) ./fake_check /Downloads/")
+parser.add_argument("dir", help="target directory. ex) python check_fake.py /Downloads/", default="")
 
 args = parser.parse_args()
 
