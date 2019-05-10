@@ -6,7 +6,7 @@ import re, os
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("dir", help="target directory. ex) ./fake_check /Downloads/", default="") # 경로 마지막에 / 로 꼭 닫아주세요.
+parser.add_argument("dir", "-d", required=True, help="target directory. ex) ./fake_check /Downloads/")
 
 args = parser.parse_args()
 
@@ -21,7 +21,7 @@ for p,w,f in os.walk(PATH):
 		if file_name[-9:]=='-NEXT.mp4':
 			print('processing %s' %os.path.join(p,file_name))
 			path = os.path.join(p,file_name)
-			a = str(check_output('ffprobe -i "'+path+'" 2>&1 | grep "encoder"', shell=True))
+			a = str(check_output('ffmpeg -i "'+path+'" 2>&1 | grep "encoder"', shell=True))
 			a = a.split(',')[0].split("encoder")[1].strip()
 			if(a[2] == "M"):
 				print("NOT FAKE")
