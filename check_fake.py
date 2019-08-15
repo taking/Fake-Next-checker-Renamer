@@ -21,14 +21,20 @@ for p,w,f in os.walk(PATH):
 		if file_name[-9:]=='-NEXT.mp4':
 			print('processing %s' %os.path.join(p,file_name))
 			path = os.path.join(p,file_name)
-			a = str(check_output('ffmpeg -i "'+path+'" 2>&1 | grep "encoder"', shell=True))
-			a = a.split(',')[0].split("encoder")[1].strip()
-			if(a[2] == "M"):
+                        print('path? =',path)
+			check_output('ffmpeg -i "'+path+'" 2>&1 | grep "encoder" > check.txt', shell=True)
+                        fopen = open('check.txt','r')
+                        linelist = fopen.readlines()
+                        fopen.close()
+                        a = linelist[-1]
+			b = a.split(',')[0].split("encoder")[1].strip()
+			if(b[2] == "M"):
 				print("NOT FAKE")
 				notfake.append(file_name)	# NOT FAKE NEXT
 			else:
 				print("FAKE")
-				fake.append(file_name) 		# FAKE NEXT
+                                result = file_name + ' ' + a
+				fake.append(result) 		# FAKE NEXT
 				rename = re.sub('-NEXT', '', file_name)
 				os.rename(os.path.join(p,file_name), os.path.join(p,rename))
 
