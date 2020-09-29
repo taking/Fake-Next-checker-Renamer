@@ -1,7 +1,7 @@
 # Fake NEXT Checker & Renamer
 
 * 간단하게 만든 스크립트입니다. 
-* Python 으로 제작되었습니다.
+* Python2.7 으로 제작되었습니다.
 
 
 
